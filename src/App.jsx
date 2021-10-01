@@ -5,7 +5,31 @@ const App = () => {
     {
       title: 'This is my awesome article!',
       date: new Date(),
-      thumbnail: 'https://via.placeholder.com/256/256/CCC?Text=thumbnail',
+      thumbnail: 'https://via.placeholder.com/256/444/CCC?Text=thumbnail',
+      description: 'this da description',
+      content:
+        'This is the article content, duh! This is the article content, duh! This is the article content, duh! This is the article content, duh! This is the article content, duh! This is the article content, duh! This is the article content, duh! This is the article content, duh! This is the article content, duh! This is the article content, duh! This is the article content, duh!',
+    },
+    {
+      title: 'This is another article!',
+      date: new Date(),
+      thumbnail: 'https://via.placeholder.com/256',
+      description: 'this da description',
+      content:
+        'This is the article content, duh! This is the article content, duh! This is the article content, duh! This is the article content, duh! This is the article content, duh! This is the article content, duh! This is the article content, duh! This is the article content, duh! This is the article content, duh! This is the article content, duh! This is the article content, duh!',
+    },
+    {
+      title: 'This is another article!',
+      date: new Date(),
+      thumbnail: 'https://via.placeholder.com/256',
+      description: 'this da description',
+      content:
+        'This is the article content, duh! This is the article content, duh! This is the article content, duh! This is the article content, duh! This is the article content, duh! This is the article content, duh! This is the article content, duh! This is the article content, duh! This is the article content, duh! This is the article content, duh! This is the article content, duh!',
+    },
+    {
+      title: 'This is another article!',
+      date: new Date(),
+      thumbnail: 'https://via.placeholder.com/256',
       description: 'this da description',
       content:
         'This is the article content, duh! This is the article content, duh! This is the article content, duh! This is the article content, duh! This is the article content, duh! This is the article content, duh! This is the article content, duh! This is the article content, duh! This is the article content, duh! This is the article content, duh! This is the article content, duh!',
@@ -22,30 +46,34 @@ const App = () => {
 
   return (
     <div className='relative w-screen h-screen overflow-hidden from-gray-900 to-black bg-gradient-to-t'>
-      <div className='flex flex-col space-y-12 p-12 items-center w-full h-full overflow-y-auto'>
-        <div className='grid place-content-center w-full h-24 from-blue-900 to-blue-800 bg-gradient-to-t shadow-lg rounded-sm'>
-          <h1 className='text-gray-200 text-4xl'>Zachary Pitcher</h1>
-        </div>
+      <div className='w-full h-full overflow-y-auto'>
+        <div className='mx-auto flex flex-col space-y-12 py-8 px-12 lg:px-0 items-center w-full lg:w-192 h-full'>
+          <div className='grid place-content-center w-full from-blue-900 to-blue-800 bg-gradient-to-t shadow-lg rounded-sm'>
+            <h1 className='text-gray-200 text-4xl h-12'>Zachary Pitcher</h1>
+          </div>
 
-        {articles.map((a, i) => (
-          <button
-            className='w-full h-96 flex bg-gray-800 hover:bg-gray-900 transition-colors shadow-lg rounded-sm'
-            onClick={() => selectArticle(i)}
-          >
-            <div className='w-1/2 h-full'>
-              <img
-                src={article.thumbnail}
-                alt='article thumbnail'
-                className='w-full h-full object-cover'
-              />
-            </div>
-            <div className='w-1/2 h-full flex flex-col p-4'>
-              <h1 className='h-8 text-gray-300 text-xl font-bold'>{article.title}</h1>
-              <p className='h-8 m-2 text-gray-300 italic'>{article.description}</p>
-              <p className='h-full m-4 text-gray-300 text-left'>{article.content}</p>
-            </div>
-          </button>
-        ))}
+          {articles.map((a, i) => (
+            <button
+              className='w-full h-48 flex bg-gray-800 hover:bg-gray-900 transition-colors shadow-lg rounded-sm'
+              onClick={() => selectArticle(i)}
+            >
+              <div className='w-2/5 h-full'>
+                <img
+                  src={article.thumbnail}
+                  alt='article thumbnail'
+                  className='w-full h-full object-cover'
+                />
+              </div>
+              <div className='w-3/5 h-full flex flex-col p-4'>
+                <h1 className='h-8 text-gray-300 text-xl font-bold'>{article.title}</h1>
+                <p className='h-8 m-2 text-gray-300 italic'>{article.description}</p>
+                <p className='h-full m-4 text-gray-300 text-left'>
+                  {article.content.slice(0, 100)} . . .
+                </p>
+              </div>
+            </button>
+          ))}
+        </div>
       </div>
 
       <div
