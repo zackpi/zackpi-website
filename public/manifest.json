@@ -1,0 +1,15 @@
+{
+  "short_name": "zackpi-website",
+  "name": "Zachary Pitcher Website",
+  "icons": [
+    {
+      "src": "logo.png",
+      "type": "image/png",
+      "sizes": "256x256"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
+}
