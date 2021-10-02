@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import 'fs';
 import goldfoil from './goldfoil.png';
 import './artdeco.css';
 import { ReactComponent as CurtainSvg } from './dontdelete/innerHighlight.svg';
