@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { BrowserRouter, Switch, Route, Link } from 'react-router-dom';
-import Editor from './components/Editor';
 import ArtDeco from './components/ArtDeco';
 
 const App = () => {
@@ -8,9 +7,6 @@ const App = () => {
     <div className='relative w-screen h-screen overflow-hidden from-gray-900 to-black bg-gradient-to-t'>
       <BrowserRouter>
         <Switch>
-          <Route path='/editor'>
-            <Editor />
-          </Route>
           <Route path='/artdeco'>
             <ArtDeco />
           </Route>
@@ -30,12 +26,6 @@ const Feed = () => {
         <div className='grid place-content-center w-full from-blue-900 to-blue-800 bg-gradient-to-t shadow-lg rounded-sm'>
           <h1 className='text-gray-200 text-4xl h-12'>Zachary Pitcher</h1>
         </div>
-
-        <Link to='/editor'>
-          <div className='w-36 h-8 grid place-content-center from-blue-900 to-blue-800 bg-gradient-to-t shadow-lg text-gray-200 rounded-sm'>
-            editor
-          </div>
-        </Link>
 
         <Link to='/artdeco'>
           <div className='w-36 h-8 grid place-content-center from-blue-900 to-blue-800 bg-gradient-to-t shadow-lg text-gray-200 rounded-sm'>

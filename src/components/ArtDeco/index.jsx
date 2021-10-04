@@ -1,28 +1,86 @@
 import React, { useState, useEffect } from 'react';
-import goldfoil from './goldfoil.png';
 import './artdeco.css';
-import { ReactComponent as CurtainSvg } from './dontdelete/innerHighlight.svg';
+import thumbnail_1 from './goldfoil.png';
+import { ReactComponent as CurtainSvg } from './curtain.svg';
 
 const ArtDeco = () => {
 	const [writeup, setWriteup] = useState('');
 
 	return (
-		<div className='w-full h-full bg-gray-700'>
-			<CurtainSvg />
-			{/*<svg
-				width='100%'
-				height='50%'
-				viewBox='0 0 1 1'
-				preserveAspectRatio='none'
-				xmlns='http://www.w3.org/2000/svg'
-			>
-				<defs>
-					<clipPath id='curtain' clipPathUnits='objectBoundingBox'>
-						<path d='M0.083 0.83C0.076 0.886 0.05 1 0 1V0H1V1C0.948 1 0.923 0.886 0.917 0.83C0.91 0.886 0.884 1 0.833 1C0.783 1 0.757 0.886 0.75 0.83C0.743 0.886 0.717 1 0.667 1C0.617 1 0.59 0.886 0.583 0.83C0.577 0.886 0.55 1 0.5 1C0.45 1 0.424 0.886 0.417 0.83C0.41 0.886 0.384 1 0.333 1C0.283 1 0.257 0.886 0.25 0.83C0.243 0.886 0.217 1 0.167 1C0.117 1 0.09 0.886 0.083 0.83Z' />
-					</clipPath>
-				</defs>
-				<image width='1' clip-path='url(#curtain)' href={goldfoil}></image>
-			</svg>*/}
+		<div className='w-full h-full pin-stripes overflow-auto scrollbar-none font-artdeco'>
+			<div className='z-20 relative w-full h-96'>
+				<CurtainSvg className='w-full h-auto' />
+				<button
+					className='absolute w-20 font-responsive engraved grid place-content-center'
+					style={{
+						top: '4vw',
+						left: '2vw',
+						height: '10vw',
+					}}
+				>
+					{'🢦'}
+				</button>
+				<div
+					className='absolute w-1/2 left-1/4 font-responsive border-fancy engraved grid place-content-center'
+					style={{
+						top: '4vw',
+						height: '10vw',
+					}}
+				>
+					<h1>ZACKPI</h1>
+				</div>
+				<button
+					className='absolute w-20 font-responsive engraved grid place-content-center'
+					style={{
+						top: '4vw',
+						right: '2vw',
+						height: '10vw',
+					}}
+				>
+					{'🢧'}
+				</button>
+			</div>
+
+			<div className='-mt-12 pb-36 z-10 w-full flex flex-col space-y-16 items-center'>
+				<div className='w-3/4 h-64 card-fancy'>
+					<div className='absolute w-full z-20 p-16 flex flex-col space-y-8 justify-start items-center text-3xl'>
+						<h1 className='text-4xl'>I.</h1>
+						<h2 className=''>Introduction</h2>
+					</div>
+				</div>
+
+				<div className='w-3/4 h-112 card-fancy'>
+					<div className='absolute w-full z-20 p-16 flex flex-col space-y-8 justify-start items-center text-3xl'>
+						<h1 className='text-4xl'>II.</h1>
+						<h2 className=''>Making the Metal Curtain</h2>
+						<img alt='thumbnail' src={thumbnail_1} className='h-48 w-96 fit-cover shadow' />
+					</div>
+				</div>
+
+				<div className='w-3/4 h-112 card-fancy'>
+					<div className='absolute w-full z-20 p-16 flex flex-col space-y-8 justify-start items-center text-3xl'>
+						<h1 className='text-4xl'>III.</h1>
+						<h2 className=''>Making the Engraved Title</h2>
+						<img alt='thumbnail' src={thumbnail_1} className='h-48 w-96 fit-cover shadow' />
+					</div>
+				</div>
+
+				<div className='w-3/4 h-112 card-fancy'>
+					<div className='absolute w-full z-20 p-16 flex flex-col space-y-8 justify-start items-center text-3xl'>
+						<h1 className='text-4xl'>IV.</h1>
+						<h2 className=''>Making the Pin-Stripe Background</h2>
+						<img alt='thumbnail' src={thumbnail_1} className='h-48 w-96 fit-cover shadow' />
+					</div>
+				</div>
+
+				<div className='w-3/4 h-112 card-fancy'>
+					<div className='absolute w-full z-20 p-16 flex flex-col space-y-8 justify-start items-center text-3xl'>
+						<h1 className='text-4xl'>V.</h1>
+						<h2 className=''>Making the Plaque Cards</h2>
+						<img alt='thumbnail' src={thumbnail_1} className='h-48 w-96 fit-cover shadow' />
+					</div>
+				</div>
+			</div>
 		</div>
 	);
 };

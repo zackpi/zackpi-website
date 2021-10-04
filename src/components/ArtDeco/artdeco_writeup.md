@@ -2,7 +2,6 @@ Wanted to make some ArtDeco, so I went to Figma and started mocking something up
 
 This is the image that I made in Figma, and it includes some tricky inner shadows and drop shadows to give the engraved part and the curtain a 'beveled' effect.
 
-
 with bevels:
 without bevels:
 (show these zoomed in on the curtain parts so it's clear that the effect I'm looking for is the shadows / highlights)
@@ -106,26 +105,27 @@ Comparing this to the more verbose one, it's clear that the first two lines of t
 These are the settings that I used for this effect, so we should be able to reverse engineer the IH effect line-by-line to figure out how it achieves these settings,
 show image (settingsIH.png)
 
-| x 			| 3 			|
-| y 			| -1 			|
-| blur 		| 2 			|
-| color 	| #E7E7E7 |
-| opacity | 100% 		|
+| x | 3 |
+| y | -1 |
+| blur | 2 |
+| color | #E7E7E7 |
+| opacity | 100% |
 
 First off, there is a reference to 'SourceAlpha' link(https://www.w3.org/TR/SVG11/filters.html#SourceAlpha), which is the alpha channel of the source graphic. Thus, anything that is supposed to be clipped out of the image shouldn't be affected by this filter. This is good because we are making an inner filter so it should get clipped by the path we've specified.
 
 ```xml
 <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
 ```
+
 link(https://www.w3.org/TR/SVG11/filters.html#feColorMatrixElement)
 This multiplies the input image by the specified color matrix:
 
-| R | G | B | A   | M |
-|---|---|---|-----|---|
-| 0 | 0 | 0 | 0 	| 0 |
-| 0 | 0 | 0 | 0 	| 0 |
-| 0 | 0 | 0 | 0 	| 0 |
-| 0 | 0 | 0 | 127 | 0 |
+| R   | G   | B   | A   | M   |
+| --- | --- | --- | --- | --- |
+| 0   | 0   | 0   | 0   | 0   |
+| 0   | 0   | 0   | 0   | 0   |
+| 0   | 0   | 0   | 0   | 0   |
+| 0   | 0   | 0   | 127 | 0   |
 
 These matrix appears to set all of the color channels to 0 to create black, and then uses 127 (out of 255 I presume) in the alpha channel to fade out the black half-way, basically creating a black mask of the source image with half opacity.
 I used link(https://fecolormatrix.com/) and put this color matrix into the calculator to verify my thought process, and it seems to be correct. I had to swap 127 out for 0.5 because these appear to be mapped from the range [0,255] to [0,1].
@@ -134,19 +134,19 @@ show image (feColorMatrix.png)
 Applying this to SourceAlpha basically creates a filled in version of SourceAlpha with the desired color.
 show image (sourceAlphaGray.png)
 
-
 ```xml
 <feOffset dx="3" dy="-1"/>
 ```
+
 Just by looking at it, it's pretty clear this is what applies the x=3 and y=-1 offsets. It chooses between hardAlpha (the output of the feColorMatrix) or shape (the output of the "fixed background part") based on what was most recently operated on, so I'm guessing the order that these filters are applied affects performance because the image primitives might need to be loaded and unloaded from memory. Unclear on that though, it's possible they all fit in memory and then it's just about saving those precious bytes by not having to specify the 'in' property.
 
 Either way, this offsets the thing that we made gray in the previous step, which we weren't actually able to see before.
 show image (withOffset.png)
 
-
 ```xml
 <feGaussianBlur stdDeviation="1"/>
 ```
+
 This applies a Gaussian blur, which is a pretty standard image manipulation operation that just applies a kernel to the image. The size of the kernel and the standard deviation specify the effect of the blur.
 
 show image (withBlur.png)
@@ -154,20 +154,22 @@ show image (withBlur.png)
 ```xml
 <feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1"/>
 ```
+
 Then, the two images are composited together, which means they are overlapped and some operation is applied to both to combine them together. In this case the mask is subtracted from hardAlpha, so only the parts that are inside of the clipped path end up in the result. This creates the exact shape and gradient of the desired shadow, but the color is all black instead of the #E7E7E7 color we chose.
 show image (withComposite.png)
 
 ```xml
 <feColorMatrix type="matrix" values="0 0 0 0 0.904167 0 0 0 0 0.904167 0 0 0 0 0.904167 0 0 0 1 0"/>
 ```
+
 Now we have to fill in the mask with the correct color. To do that, we apply a color matrix to the result of the composite, which turns all the parts that were black into the exact color we're looking for:
 
-| R | G | B | A | M   |
-|---|---|---|---|-----|
-| 0 | 0 | 0 | 0 | 0.9 |
-| 0 | 0 | 0 | 0 | 0.9 |
-| 0 | 0 | 0 | 0 | 0.9 |
-| 0 | 0 | 0 | 1 | 0   |
+| R   | G   | B   | A   | M   |
+| --- | --- | --- | --- | --- |
+| 0   | 0   | 0   | 0   | 0.9 |
+| 0   | 0   | 0   | 0   | 0.9 |
+| 0   | 0   | 0   | 0   | 0.9 |
+| 0   | 0   | 0   | 1   | 0   |
 
 show image ()
 indeed if you use the color picker, you'll find that the color on the right is #E7E7E7 color.
@@ -175,6 +177,6 @@ indeed if you use the color picker, you'll find that the color on the right is #
 ```xml
 <feBlend mode="normal" in2="shape" result="effect1_innerShadow"/>
 ```
+
 Finally, the colored mask is blended with shape to create the final output image.
 show image (innerHighlight.png)
-

@@ -1,14 +1,204 @@
-.shadow-dramatic {
-	filter: drop-shadow(-1px 6px 3px rgba(50, 50, 0, 0.5)) drop-shadow(-1px 6px 3px green);
+/* make the font size respond to window width */
+.font-responsive {
+	font-size: 5vw;
 }
 
-.bevel-gold-inner {
-	filter: drop-shadow(-1px -1px 3px blue);
+/* generate the Porter Sans Block font-face, courtesy of https://www.tylerfinck.com/ */
+@font-face {
+	font-family: 'porter_sans_blockblock';
+	src: url('porter-sans-inline-block-webfont.eot');
+	src: url('porter-sans-inline-block-webfont.eot?#iefix') format('embedded-opentype'),
+		url('porter-sans-inline-block-webfont.woff') format('woff'),
+		url('porter-sans-inline-block-webfont.ttf') format('truetype'),
+		url('porter-sans-inline-block-webfont.svg#porter_sans_blockblock') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+.font-artdeco-title {
+	font-family: 'porter_sans_blockblock', sans-serif;
 }
 
-.goldfoil {
-	background-image: url('./goldfoil.png');
+/* make the thick main border */
+.border-fancy {
+	border: 0.5vw solid black;
+	box-sizing: border-box;
 }
 
+/* make the vertically stretched thin border relative to the main border */
+.border-fancy:before {
+	content: '';
+	position: absolute;
+	left: 0.5vw;
+	top: -1vw;
+	width: calc(100% - 1vw);
+	height: calc(100% + 2vw);
+	border: 0.125vw solid black;
+}
+
+/* make the horizontally stretched thin border relative to the main border */
+.border-fancy:after {
+	content: '';
+	position: absolute;
+	left: -1vw;
+	top: 0.5vw;
+	width: calc(100% + 2vw);
+	height: calc(100% - 1vw);
+	border: 0.125vw solid black;
+}
+
+/* add 4 drop-shadows to simulate an engraved effect */
+.engraved {
+	filter: drop-shadow(-0.1vw -0.1vw 0.1vw rgba(61, 48, 22, 0.7))
+		drop-shadow(-0.15vw -0.15vw 0.15vw rgba(243, 185, 60, 0.5))
+		drop-shadow(0.1vw 0.1vw 0.1vw rgba(243, 185, 60, 0.7))
+		drop-shadow(0.15vw 0.15vw 0.15vw rgba(61, 48, 22, 0.5));
+}
+
+/* create a pin-stripe background pattern */
+.pin-stripes {
+	background: repeating-linear-gradient(
+		0.25turn,
+		#231217,
+		#292a2e 3px,
+		#292a2e 5px,
+		#3c3b40 6px,
+		#7e7e6e 6.5px,
+		#98988b 6.75px,
+		#544646 7.5px,
+		#231217 8px,
+		#292a2e 12px,
+		#3c3b40 14px,
+		#353941 14.5px,
+		#40404a 16.5px,
+		#302126 19.5px,
+		#231217 20px
+	);
+}
+
+:root {
+	--gold: #c0a050;
+	--gold-dark: #a08030;
+	--card-lightest: #fff;
+	--card-lighter: #eee;
+	--card-light: #ddd;
+	--card: #ccc;
+	--card-dark: #bbb;
+	--card-darker: #aaa;
+	--card-darkest: #999;
+}
+
+.card-fancy {
+	position: relative;
+	border-top: 0.5rem solid var(--card-lighter);
+	border-left: 0.5rem solid var(--card-lighter);
+	border-right: 0.5rem solid var(--card-darkest);
+	border-bottom: 0.5rem solid var(--card-darkest);
+	background: radial-gradient(circle at 0 0, var(--card-lightest) 2rem, var(--card) 0) 0 0,
+		radial-gradient(circle at 100% 0, var(--card-darker) 2rem, var(--card) 0) 100% 0,
+		radial-gradient(circle at 0 100%, var(--card-darker) 2rem, var(--card) 0) 0 100%,
+		radial-gradient(circle at 100% 100%, var(--card-darkest) 2rem, var(--card) 0) 100% 100%;
+	background-size: 51% 51%;
+	background-repeat: no-repeat;
+	mask: radial-gradient(circle at 0 0, transparent 2rem, #000 0) 0 0,
+		radial-gradient(circle at 100% 0, transparent 2rem, #000 0) 100% 0,
+		radial-gradient(circle at 0 100%, transparent 2rem, #000 0) 0 100%,
+		radial-gradient(circle at 100% 100%, transparent 2rem, #000 0) 100% 100%;
+	mask-size: 51% 51%;
+	mask-repeat: no-repeat;
+	-webkit-mask: radial-gradient(circle at 0 0, transparent 2rem, #000 0) 0 0,
+		radial-gradient(circle at 100% 0, transparent 2rem, #000 0) 100% 0,
+		radial-gradient(circle at 0 100%, transparent 2rem, #000 0) 0 100%,
+		radial-gradient(circle at 100% 100%, transparent 2rem, #000 0) 100% 100%;
+	-webkit-mask-size: 51% 51%;
+	-webkit-mask-repeat: no-repeat;
+}
+
+.card-fancy::after {
+	position: absolute;
+	content: '';
+	left: 0.75rem;
+	top: 0.75rem;
+	width: calc(100% - 1.5rem);
+	height: calc(100% - 1.5rem);
+	border-top: 0.5rem solid var(--card-lighter);
+	border-left: 0.5rem solid var(--card-lighter);
+	border-right: 0.5rem solid var(--card-darker);
+	border-bottom: 0.5rem solid var(--card-darker);
+	background: radial-gradient(circle at 0 0, var(--card-lightest) 2rem, var(--card-light) 0) 0 0,
+		radial-gradient(circle at 100% 0, var(--card-dark) 2rem, var(--card-light) 0) 100% 0,
+		radial-gradient(circle at 0 100%, var(--card-dark) 2rem, var(--card-light) 0) 0 100%,
+		radial-gradient(circle at 100% 100%, var(--card-darkest) 2rem, var(--card-light) 0) 100% 100%;
+	background-size: 51% 51%;
+	background-repeat: no-repeat;
+	mask: radial-gradient(circle at 0 0, transparent 2rem, #000 0) 0 0,
+		radial-gradient(circle at 100% 0, transparent 2rem, #000 0) 100% 0,
+		radial-gradient(circle at 0 100%, transparent 2rem, #000 0) 0 100%,
+		radial-gradient(circle at 100% 100%, transparent 2rem, #000 0) 100% 100%;
+	mask-size: 51% 51%;
+	mask-repeat: no-repeat;
+	-webkit-mask: radial-gradient(circle at 0 0, transparent 2rem, #000 0) 0 0,
+		radial-gradient(circle at 100% 0, transparent 2rem, #000 0) 100% 0,
+		radial-gradient(circle at 0 100%, transparent 2rem, #000 0) 0 100%,
+		radial-gradient(circle at 100% 100%, transparent 2rem, #000 0) 100% 100%;
+	-webkit-mask-size: 51% 51%;
+	-webkit-mask-repeat: no-repeat;
+}
+
+.card-fancy::before {
+	position: absolute;
+	z-index: 10;
+	content: '';
+	left: 2rem;
+	top: 2rem;
+	width: calc(100% - 4rem);
+	height: calc(100% - 4rem);
+	border-top: 0.2rem solid var(--gold);
+	border-left: 0.2rem solid var(--gold);
+	border-right: 0.2rem solid var(--gold-dark);
+	border-bottom: 0.2rem solid var(--gold-dark);
+	background: radial-gradient(circle at 0 0, var(--gold) 2rem, var(--card-light) 0) 0 0,
+		radial-gradient(circle at 100% 0, var(--gold-dark) 2rem, var(--card-light) 0) 100% 0,
+		radial-gradient(circle at 0 100%, var(--gold-dark) 2rem, var(--card-light) 0) 0 100%,
+		radial-gradient(circle at 100% 100%, var(--gold-dark) 2rem, var(--card-light) 0) 100% 100%;
+	background-size: 51% 51%;
+	background-repeat: no-repeat;
+	mask: radial-gradient(circle at 0 0, transparent 2rem, #000 0) 0 0,
+		radial-gradient(circle at 100% 0, transparent 2rem, #000 0) 100% 0,
+		radial-gradient(circle at 0 100%, transparent 2rem, #000 0) 0 100%,
+		radial-gradient(circle at 100% 100%, transparent 2rem, #000 0) 100% 100%;
+	mask-size: 51% 51%;
+	mask-repeat: no-repeat;
+	-webkit-mask: radial-gradient(circle at 0 0, transparent 2rem, #000 0) 0 0,
+		radial-gradient(circle at 100% 0, transparent 2rem, #000 0) 100% 0,
+		radial-gradient(circle at 0 100%, transparent 2rem, #000 0) 0 100%,
+		radial-gradient(circle at 100% 100%, transparent 2rem, #000 0) 100% 100%;
+	-webkit-mask-size: 51% 51%;
+	-webkit-mask-repeat: no-repeat;
+}
+
+svg {
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: -1;
+	width: 100%;
+	height: 100%;
+}
+
+.scrollbar-none {
+	scrollbar-width: none; /* Firefox */
+}
+.scrollbar-none::-webkit-scrollbar {
+	display: none; /* Safari and Chrome */
+}
+
+/* generate the Artisual Deco Regular font-face */
+@font-face {
+	font-family: 'artisual_deco_regular';
+	src: url('./ArtisualDecoRegular.otf');
+	font-weight: normal;
+	font-style: normal;
+}
 .font-artdeco {
+	font-family: 'artisual_deco_regular', serif;
 }
